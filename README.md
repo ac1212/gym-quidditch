@@ -1,5 +1,6 @@
 # gym-quidditch
-This package provides an [OpenAI Gym](https://gym.openai.com/) environment
+This is an [OpenAI Gym](https://gym.openai.com/) environment. The environments provided are such that two adversarial agents can be trained to try to win against each other.
+
 ## gym_quidditch:quidditch-snitch-v0
 Play [Quidditch](https://en.wikipedia.org/wiki/Quidditch) as the ~~seeker~~ ~~chaser~~ ~~keeper~~ ~~beater~~ golden snitch!
 
