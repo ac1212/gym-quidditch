@@ -14,7 +14,7 @@ class QuidditchSnitchEnv(gym.Env):
         self.seeker_max_force = 455.0
         self.seeker_drag_constant = 8.45
         self.seeker_catch_radius = 1.0
-        self.dt = 0.01
+        self.dt = 0.1
 
         self.action_space = spaces.Box(-1.0,1.0,shape=(2,))
         max_snitch_speed = self.snitch_max_force/self.snitch_drag_constant
@@ -95,30 +95,32 @@ class QuidditchSnitchEnv(gym.Env):
 
         if self.viewer is None:
             self.viewer = rendering.Viewer(screen_size, screen_size)
-            self.snitch = rendering.Point()
-            self.seeker = rendering.Point()
-            self.seeker_range = rendering.make_circle(radius=self.seeker_catch_radius)
+            self.snitch = rendering.make_circle(radius=self.seeker_catch_radius)
+            
+            
 
             self.snitchpos = rendering.Transform()
             self.snitch.add_attr(self.snitchpos)
-            self.seeker.set_color(1.0,0.86,0.0)
             self.viewer.add_geom(self.snitch)
 
             self.seekerpos = rendering.Transform()
+            self.seeker = rendering.make_circle(radius=5)
             self.seeker.add_attr(self.seekerpos)
-            self.seeker.set_color(0.68,0.0,0.0)
+            self.seeker.set_color(1.0,0.7,0.7)
             self.viewer.add_geom(self.seeker)
 
+            self.seeker_range = rendering.make_circle(radius=self.seeker_catch_radius)
             self.seeker_range.add_attr(self.seekerpos)
-            self.seeker_range.set_color(1.0,0.7,0.7)
+            self.seeker_range.set_color(0.68,0.0,0.0)
             self.viewer.add_geom(self.seeker_range)
 
         if self.state is None:
             return None
         
         snitch_x,_,seeker_x,_ = self.state
-        self.snitchpos.set_translation(self.pitch_size/2+scale*snitch_x[0],self.pitch_size/2+scale*snitch_x[1])
-        self.seekerpos.set_translation(self.pitch_size/2+scale*seeker_x[0],self.pitch_size/2+scale*seeker_x[1])
+        self.snitchpos.set_translation(screen_size/2+scale*snitch_x[0],screen_size/2+scale*snitch_x[1])
+        self.seekerpos.set_translation(screen_size/2+scale*seeker_x[0],screen_size/2+scale*seeker_x[1])
+
         return self.viewer.render(return_rgb_array=mode=='rgb_array')
 
     def close(self):
