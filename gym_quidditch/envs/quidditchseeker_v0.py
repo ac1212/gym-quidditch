@@ -4,7 +4,7 @@ from gym.utils import seeding
 import numpy as np
 from gym.envs.classic_control import rendering
 
-class QuidditchSnitchEnv(gym.Env):
+class QuidditchSeekerEnv(gym.Env):
     def __init__(self):
         self.pitch_size = 200.0
         self.snitch_mass = 0.25
@@ -43,22 +43,22 @@ class QuidditchSnitchEnv(gym.Env):
         state = self.state
         snitch_x, snitch_v, seeker_x, seeker_v = state
 
-        # apply snitch force to snitch
-        snitch_f = action*self.snitch_max_force
-        snitch_f -= self.snitch_drag_constant*snitch_v
-        snitch_a = snitch_f / self.snitch_mass
-        snitch_x += snitch_v*self.dt + 0.5*snitch_a*self.dt**2
-        snitch_v += snitch_a*self.dt
+        # apply seeker force to seeker
+        seeker_f = action*self.seeker_max_force
+        seeker_f -= self.seeker_drag_constant*seeker_v
+        seeker_a = seeker_f / self.seeker_mass
+        seeker_x += seeker_v*self.dt + 0.5*seeker_a*self.dt**2
+        seeker_v += seeker_a*self.dt
 
         # seeker charges towards snitch
         seeker2snitch_x = snitch_x-seeker_x
         distance_seeker2snitch = np.linalg.norm(seeker2snitch_x)
-        seeker_f = seeker2snitch_x*self.seeker_max_force/distance_seeker2snitch
-        seeker_f -= self.seeker_drag_constant*seeker_v
-        seeker_a = seeker_f/self.seeker_mass
-        seeker_x += seeker_v*self.dt + 0.5*seeker_a*self.dt**2
-        seeker_v += seeker_a*self.dt
-        
+        snitch_f = seeker2snitch_x*self.snitch_max_force/distance_seeker2snitch
+        snitch_f -= self.snitch_drag_constant*snitch_v
+        snitch_a = snitch_f/self.snitch_mass
+        snitch_x += snitch_v*self.dt + 0.5*snitch_a*self.dt**2
+        snitch_v += snitch_a*self.dt
+
         # bounce back if wall hit
         if snitch_x[0]<-self.pitch_size/2: # hit left wall
             snitch_x[0] = -self.pitch_size/2
@@ -89,7 +89,7 @@ class QuidditchSnitchEnv(gym.Env):
 
         # calculate done and reward
         done = distance_seeker2snitch < self.seeker_catch_radius
-        reward  = 1.0 if not done else 0.0
+        reward  = -1.0 if not done else 0.0
 
         state = np.array((snitch_x, snitch_v, seeker_x, seeker_v))
         return state,reward,done,{}

@@ -1,1 +1,2 @@
 from gym_quidditch.envs.quidditchsnitch_v0 import QuidditchSnitchEnv
+from gym_quidditch.envs.quidditchseeker_v0 import QuidditchSeekerEnv
