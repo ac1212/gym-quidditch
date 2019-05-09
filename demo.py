@@ -1,6 +1,6 @@
 import gym
 
-GENERATE_FRAMES = True
+GENERATE_FRAMES = False
 if GENERATE_FRAMES:
     import scipy.misc
 render_mode = 'rgb_array' if GENERATE_FRAMES else 'human'
