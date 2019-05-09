@@ -1,7 +1,7 @@
 # gym-quidditch
 This is an [OpenAI Gym](https://gym.openai.com/) environment. The environments provided are such that two adversarial agents can be trained to try to win against each other.
 
-<img src="demo.gif" width="200">
+![demo gif](demo.gif)
 
 ## gym_quidditch:quidditch-snitch-v0
 Play [Quidditch](https://en.wikipedia.org/wiki/Quidditch) as the ~~seeker~~ ~~chaser~~ ~~keeper~~ ~~beater~~ golden snitch!
