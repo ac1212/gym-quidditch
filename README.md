@@ -6,7 +6,7 @@ Play [Quidditch](https://en.wikipedia.org/wiki/Quidditch) as the ~~seeker~~ ~~ch
 
 Outwit the seeker and fly around as long as you can without being caught.
 
-## gym_quidditch:quidditch-snitch-v0
+## gym_quidditch:quidditch-seeker-v0
 Play [Quidditch](https://en.wikipedia.org/wiki/Quidditch) as the seeker. Catch the snitch as fast as you can.
 
 
