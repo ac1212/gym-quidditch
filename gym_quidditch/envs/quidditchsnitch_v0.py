@@ -102,6 +102,7 @@ class QuidditchSnitchEnv(gym.Env):
             seeker_start_x,
             np.array([0.0,0.0])
         ),axis=0)
+        return self.state
 
     def render(self, mode='human'):
         screen_size = 400
